@@ -720,7 +720,7 @@
             </div>
           </div>
 
-          <div id="panel-Homeowners" class="dynamic-panel">
+<div id="panel-Homeowners" class="dynamic-panel">
   <h4>Homeowners quote details</h4>
   <p class="panel-copy">
     Please provide the property, occupancy, and protection details needed for accurate homeowners quote review.
@@ -762,10 +762,50 @@
     </div>
 
     <div class="field">
-      <label for="homeClosingDate">Closing date or current policy expiration date</label>
-      <input id="homeClosingDate" name="homeClosingDate" type="date" />
+      <label for="homeClosingOrRenewal">Is this a new purchase / closing?</label>
+      <select id="homeClosingOrRenewal" name="homeClosingOrRenewal">
+        <option value="">Select one</option>
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+      </select>
     </div>
 
+    <div class="field">
+      <label for="homeCurrentPolicyExpiration">Current policy expiration date</label>
+      <input id="homeCurrentPolicyExpiration" name="homeCurrentPolicyExpiration" type="date" />
+    </div>
+  </div>
+
+  <div id="homeClosingFields" class="subsection-toggle" style="display:none; margin-top:1rem;">
+    <div class="grid two">
+      <div class="field">
+        <label for="homeEscrow">Will insurance be escrowed?</label>
+        <select id="homeEscrow" name="homeEscrow">
+          <option value="">Select one</option>
+          <option>Yes</option>
+          <option>No</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="homeExpectedClosingDate">Expected closing date</label>
+        <input id="homeExpectedClosingDate" name="homeExpectedClosingDate" type="date" />
+      </div>
+
+      <div class="field">
+        <label for="homeRealtorContact">Realtor contact</label>
+        <textarea id="homeRealtorContact" name="homeRealtorContact" placeholder="Name, phone number, and email."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="homeLenderContact">Lender contact</label>
+        <textarea id="homeLenderContact" name="homeLenderContact" placeholder="Lender, processor, phone number, and email."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid two" style="margin-top:1rem;">
     <div class="field">
       <label for="homePurchasePrice">Purchase price</label>
       <input id="homePurchasePrice" name="homePurchasePrice" type="text" />
@@ -774,16 +814,6 @@
     <div class="field">
       <label for="homeMarketValue">Estimated market value</label>
       <input id="homeMarketValue" name="homeMarketValue" type="text" />
-    </div>
-
-    <div class="field">
-      <label for="homeRealtorContact">Realtor contact</label>
-      <textarea id="homeRealtorContact" name="homeRealtorContact" placeholder="Name, phone number, and email."></textarea>
-    </div>
-
-    <div class="field">
-      <label for="homeLenderContact">Lender contact</label>
-      <textarea id="homeLenderContact" name="homeLenderContact" placeholder="Name, phone number, and email."></textarea>
     </div>
 
     <div class="field">
@@ -815,12 +845,95 @@
       <label for="homeSecurity">Security and protective features</label>
       <textarea id="homeSecurity" name="homeSecurity" placeholder="Gated entrance, manned gate, local alarm, central alarm, deadbolts, shutters, mitigation features, etc."></textarea>
     </div>
+  </div>
 
+  <div class="grid two" style="margin-top:1rem;">
+    <fieldset class="field">
+      <legend class="fieldset-label">Mitigation report</legend>
+      <div class="option-grid">
+        <label class="choice"><input type="radio" name="homeMitigationReportStatus" value="I have"><span>I have</span></label>
+        <label class="choice"><input type="radio" name="homeMitigationReportStatus" value="I ordered"><span>I ordered</span></label>
+        <label class="choice"><input type="radio" name="homeMitigationReportStatus" value="I do not have"><span>I do not have</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend class="fieldset-label">4-point inspection</legend>
+      <div class="option-grid">
+        <label class="choice"><input type="radio" name="homeFourPointStatus" value="I have"><span>I have</span></label>
+        <label class="choice"><input type="radio" name="homeFourPointStatus" value="I ordered"><span>I ordered</span></label>
+        <label class="choice"><input type="radio" name="homeFourPointStatus" value="I do not have"><span>I do not have</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend class="fieldset-label">Roof inspection / certification</legend>
+      <div class="option-grid">
+        <label class="choice"><input type="radio" name="homeRoofInspectionStatus" value="I have"><span>I have</span></label>
+        <label class="choice"><input type="radio" name="homeRoofInspectionStatus" value="I ordered"><span>I ordered</span></label>
+        <label class="choice"><input type="radio" name="homeRoofInspectionStatus" value="I do not have"><span>I do not have</span></label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="grid two" style="margin-top:1rem;">
     <div class="field">
-      <label for="homePoolTrampoline">Pool or trampoline details</label>
-      <textarea id="homePoolTrampoline" name="homePoolTrampoline" placeholder="No pool, in-ground, above-ground, fenced, slide, diving board, detached trampoline, no trampoline, etc."></textarea>
+      <label for="homePool">Is there a pool?</label>
+      <select id="homePool" name="homePool">
+        <option value="">Select one</option>
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+      </select>
     </div>
 
+    <div class="field">
+      <label for="homeTrampoline">Is there a trampoline?</label>
+      <select id="homeTrampoline" name="homeTrampoline">
+        <option value="">Select one</option>
+        <option>No</option>
+        <option>Yes</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="homePoolFields" class="subsection-toggle" style="display:none; margin-top:1rem;">
+    <div class="grid two">
+      <div class="field">
+        <label for="homePoolType">Pool type</label>
+        <select id="homePoolType" name="homePoolType">
+          <option value="">Select one</option>
+          <option>In-ground</option>
+          <option>Above-ground</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="homePoolFence">Is there a fence enclosure around the pool?</label>
+        <select id="homePoolFence" name="homePoolFence">
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+        <small>If pool = yes, this confirmation should be completed.</small>
+      </div>
+
+      <div class="field">
+        <label for="homePoolScreen">Is there a screen enclosure?</label>
+        <select id="homePoolScreen" name="homePoolScreen">
+          <option value="">Select one</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="homePoolFeatures">Other pool details</label>
+        <textarea id="homePoolFeatures" name="homePoolFeatures" placeholder="Fence gate, slide, diving board, or other liability details."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid two" style="margin-top:1rem;">
     <div class="field">
       <label for="homeAnimals">Animals and bite history</label>
       <textarea id="homeAnimals" name="homeAnimals" placeholder="List breeds and whether there is any bite history."></textarea>
@@ -834,11 +947,6 @@
     <div class="field">
       <label for="homeCurrentCarrier">Current insurance company</label>
       <input id="homeCurrentCarrier" name="homeCurrentCarrier" type="text" placeholder="If insured now, list carrier name." />
-    </div>
-
-    <div class="field">
-      <label for="homeInspectionDocs">Available inspection or mitigation documents</label>
-      <textarea id="homeInspectionDocs" name="homeInspectionDocs" placeholder="Mitigation report, 4-point inspection, roof certification, or note if not available."></textarea>
     </div>
 
     <div class="field">
