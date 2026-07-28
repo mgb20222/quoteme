@@ -731,8 +731,8 @@
       <label for="homeUseType">Home type</label>
       <select id="homeUseType" name="homeUseType">
         <option value="">Select one</option>
-        <option>Primary residence</option>
-        <option>Secondary / vacation home</option>
+        <option value="Primary residence">Primary residence</option>
+        <option value="Secondary / vacation home">Secondary / vacation home</option>
       </select>
     </div>
 
@@ -762,7 +762,7 @@
     </div>
 
     <div class="field">
-      <label for="homeClosingOrRenewal">Is this a new purchase / closing?</label>
+      <label for="homeClosingOrRenewal">New purchase / closing?</label>
       <select id="homeClosingOrRenewal" name="homeClosingOrRenewal">
         <option value="">Select one</option>
         <option value="No">No</option>
@@ -773,6 +773,7 @@
     <div class="field">
       <label for="homeCurrentPolicyExpiration">Current policy expiration date</label>
       <input id="homeCurrentPolicyExpiration" name="homeCurrentPolicyExpiration" type="date" />
+      <small>Use this when it is not a new purchase.</small>
     </div>
   </div>
 
@@ -782,9 +783,9 @@
         <label for="homeEscrow">Will insurance be escrowed?</label>
         <select id="homeEscrow" name="homeEscrow">
           <option value="">Select one</option>
-          <option>Yes</option>
-          <option>No</option>
-          <option>Not sure yet</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Not sure yet">Not sure yet</option>
         </select>
       </div>
 
@@ -890,8 +891,8 @@
       <label for="homeTrampoline">Is there a trampoline?</label>
       <select id="homeTrampoline" name="homeTrampoline">
         <option value="">Select one</option>
-        <option>No</option>
-        <option>Yes</option>
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
       </select>
     </div>
   </div>
@@ -902,8 +903,8 @@
         <label for="homePoolType">Pool type</label>
         <select id="homePoolType" name="homePoolType">
           <option value="">Select one</option>
-          <option>In-ground</option>
-          <option>Above-ground</option>
+          <option value="In-ground">In-ground</option>
+          <option value="Above-ground">Above-ground</option>
         </select>
       </div>
 
@@ -914,21 +915,21 @@
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
-        <small>If pool = yes, this confirmation should be completed.</small>
+        <small>If pool = yes, this must be completed.</small>
       </div>
 
       <div class="field">
         <label for="homePoolScreen">Is there a screen enclosure?</label>
         <select id="homePoolScreen" name="homePoolScreen">
           <option value="">Select one</option>
-          <option>Yes</option>
-          <option>No</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
         </select>
       </div>
 
       <div class="field">
         <label for="homePoolFeatures">Other pool details</label>
-        <textarea id="homePoolFeatures" name="homePoolFeatures" placeholder="Fence gate, slide, diving board, or other liability details."></textarea>
+        <textarea id="homePoolFeatures" name="homePoolFeatures" placeholder="Fence gate, slide, diving board, locked access, or other liability details."></textarea>
       </div>
     </div>
   </div>
