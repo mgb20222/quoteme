@@ -721,51 +721,136 @@
           </div>
 
           <div id="panel-Homeowners" class="dynamic-panel">
-            <h4>Homeowners quote details</h4>
-            <p class="panel-copy">Focus on occupancy, construction, roof, protection class, and prior loss information.</p>
-            <div class="grid two">
-              <div class="field">
-                <label for="homeAddress">Property address</label>
-                <input id="homeAddress" name="homeAddress" type="text" />
-              </div>
-              <div class="field">
-                <label for="homeOccupancy">Occupancy type</label>
-                <input id="homeOccupancy" name="homeOccupancy" type="text" placeholder="Primary, secondary, seasonal, rental, vacant." />
-              </div>
-              <div class="field">
-                <label for="homeYearBuilt">Year built</label>
-                <input id="homeYearBuilt" name="homeYearBuilt" type="text" />
-              </div>
-              <div class="field">
-                <label for="homeSquareFeet">Square footage</label>
-                <input id="homeSquareFeet" name="homeSquareFeet" type="text" />
-              </div>
-              <div class="field">
-                <label for="homeConstruction">Construction type</label>
-                <input id="homeConstruction" name="homeConstruction" type="text" placeholder="Frame, masonry, stucco, concrete block, etc." />
-              </div>
-              <div class="field">
-                <label for="homeRoof">Roof details</label>
-                <input id="homeRoof" name="homeRoof" type="text" placeholder="Roof type and age." />
-              </div>
-              <div class="field">
-                <label for="homeSystems">Electrical, plumbing, HVAC updates</label>
-                <textarea id="homeSystems" name="homeSystems" placeholder="Provide update years if known."></textarea>
-              </div>
-              <div class="field">
-                <label for="homeProtection">Protection features</label>
-                <textarea id="homeProtection" name="homeProtection" placeholder="Alarm, sprinkler, gated community, wind mitigation, shutters, hydrant distance."></textarea>
-              </div>
-              <div class="field">
-                <label for="homeLiabilityHazards">Dogs, pool, trampoline, business use</label>
-                <textarea id="homeLiabilityHazards" name="homeLiabilityHazards" placeholder="List any liability concerns or special exposures."></textarea>
-              </div>
-              <div class="field">
-                <label for="homeClaims">Prior property claims</label>
-                <textarea id="homeClaims" name="homeClaims" placeholder="Loss dates, type of loss, amount paid, open/closed status."></textarea>
-              </div>
-            </div>
-          </div>
+  <h4>Homeowners quote details</h4>
+  <p class="panel-copy">
+    Please provide the property, occupancy, and protection details needed for accurate homeowners quote review.
+  </p>
+
+  <div class="grid two">
+    <div class="field">
+      <label for="homeUseType">Home type</label>
+      <select id="homeUseType" name="homeUseType">
+        <option value="">Select one</option>
+        <option>Primary residence</option>
+        <option>Secondary / vacation home</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="homeOccupancyMonths">Months occupied each year</label>
+      <input id="homeOccupancyMonths" name="homeOccupancyMonths" type="text" placeholder="Example: 12, 6, seasonal" />
+    </div>
+
+    <div class="field">
+      <label for="homeAddress">Physical address of dwelling</label>
+      <input id="homeAddress" name="homeAddress" type="text" />
+    </div>
+
+    <div class="field">
+      <label for="homeCounty">County</label>
+      <input id="homeCounty" name="homeCounty" type="text" />
+    </div>
+
+    <div class="field">
+      <label for="homeMailingAddress">Mailing address if different</label>
+      <input id="homeMailingAddress" name="homeMailingAddress" type="text" />
+    </div>
+
+    <div class="field">
+      <label for="homeNamedInsured">Names exactly as they appear on the deed</label>
+      <input id="homeNamedInsured" name="homeNamedInsured" type="text" />
+    </div>
+
+    <div class="field">
+      <label for="homeClosingDate">Closing date or current policy expiration date</label>
+      <input id="homeClosingDate" name="homeClosingDate" type="date" />
+    </div>
+
+    <div class="field">
+      <label for="homePurchasePrice">Purchase price</label>
+      <input id="homePurchasePrice" name="homePurchasePrice" type="text" />
+    </div>
+
+    <div class="field">
+      <label for="homeMarketValue">Estimated market value</label>
+      <input id="homeMarketValue" name="homeMarketValue" type="text" />
+    </div>
+
+    <div class="field">
+      <label for="homeRealtorContact">Realtor contact</label>
+      <textarea id="homeRealtorContact" name="homeRealtorContact" placeholder="Name, phone number, and email."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="homeLenderContact">Lender contact</label>
+      <textarea id="homeLenderContact" name="homeLenderContact" placeholder="Name, phone number, and email."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="homeYearBuilt">Year built</label>
+      <input id="homeYearBuilt" name="homeYearBuilt" type="text" />
+    </div>
+
+    <div class="field">
+      <label for="homeSquareFeet">Living square footage</label>
+      <input id="homeSquareFeet" name="homeSquareFeet" type="text" />
+    </div>
+
+    <div class="field">
+      <label for="homeConstruction">Construction type</label>
+      <input id="homeConstruction" name="homeConstruction" type="text" placeholder="Frame, masonry, concrete block, stucco, etc." />
+    </div>
+
+    <div class="field">
+      <label for="homeRoofYear">Last year roof was replaced or installed</label>
+      <input id="homeRoofYear" name="homeRoofYear" type="text" />
+    </div>
+
+    <div class="field">
+      <label for="homeSystems">Updates or renovations</label>
+      <textarea id="homeSystems" name="homeSystems" placeholder="Roof, electrical, plumbing, HVAC, windows, or other important improvements."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="homeSecurity">Security and protective features</label>
+      <textarea id="homeSecurity" name="homeSecurity" placeholder="Gated entrance, manned gate, local alarm, central alarm, deadbolts, shutters, mitigation features, etc."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="homePoolTrampoline">Pool or trampoline details</label>
+      <textarea id="homePoolTrampoline" name="homePoolTrampoline" placeholder="No pool, in-ground, above-ground, fenced, slide, diving board, detached trampoline, no trampoline, etc."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="homeAnimals">Animals and bite history</label>
+      <textarea id="homeAnimals" name="homeAnimals" placeholder="List breeds and whether there is any bite history."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="homeClaims">Property insurance losses in the last 5 years</label>
+      <textarea id="homeClaims" name="homeClaims" placeholder="Include date, cause of loss, and whether the claim was paid or denied if known."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="homeCurrentCarrier">Current insurance company</label>
+      <input id="homeCurrentCarrier" name="homeCurrentCarrier" type="text" placeholder="If insured now, list carrier name." />
+    </div>
+
+    <div class="field">
+      <label for="homeInspectionDocs">Available inspection or mitigation documents</label>
+      <textarea id="homeInspectionDocs" name="homeInspectionDocs" placeholder="Mitigation report, 4-point inspection, roof certification, or note if not available."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="homeSpecialRequests">Special requests, coverage needs, or additional details</label>
+      <textarea id="homeSpecialRequests" name="homeSpecialRequests" placeholder="Any special coverage requests, concerns, or other homeowner details."></textarea>
+    </div>
+  </div>
+
+  <div class="callout">
+    We do not ask for Social Security numbers in this form. If additional protected information is needed later, the receiving licensed agent should request it directly by phone.
+  </div>
+</div>
 
           <div id="panel-Condo" class="dynamic-panel">
             <h4>Condo quote details</h4>
