@@ -67,9 +67,7 @@
       --font-display: 'Boska', Georgia, serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
@@ -88,18 +86,7 @@
         linear-gradient(180deg, #f9f8f5 0%, #f7f6f2 100%);
     }
 
-    img, svg {
-      max-width: 100%;
-      display: block;
-    }
-
-    button, input, select, textarea {
-      font: inherit;
-    }
-
-    a {
-      color: inherit;
-    }
+    button, input, select, textarea { font: inherit; }
 
     .page-shell {
       width: min(1100px, calc(100% - 2rem));
@@ -296,9 +283,7 @@
       display: inline-block;
     }
 
-    form {
-      padding: var(--space-8);
-    }
+    form { padding: var(--space-8); }
 
     .section {
       padding: var(--space-6) 0;
@@ -328,13 +313,7 @@
       gap: var(--space-4);
     }
 
-    .grid.two {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .grid.three {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     .field {
       display: grid;
@@ -348,11 +327,6 @@
       color: var(--color-text);
     }
 
-    .field small {
-      color: var(--color-text-faint);
-      font-size: var(--text-xs);
-    }
-
     input,
     select,
     textarea {
@@ -364,7 +338,6 @@
       background: #fff;
       color: var(--color-text);
       outline: none;
-      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
     }
 
     textarea {
@@ -471,18 +444,11 @@
       letter-spacing: 0.01em;
       cursor: pointer;
       box-shadow: 0 10px 24px rgba(1, 105, 111, 0.18);
-      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
-    }
-
-    .button:hover {
-      background: var(--color-primary-hover);
-      transform: translateY(-1px);
     }
 
     .button:disabled {
       cursor: not-allowed;
       opacity: 0.65;
-      transform: none;
       box-shadow: none;
     }
 
@@ -514,6 +480,14 @@
       color: #7d1e5e;
     }
 
+    .hp-field {
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
+
     .footer-note {
       margin-top: var(--space-8);
       text-align: center;
@@ -523,8 +497,7 @@
 
     @media (max-width: 900px) {
       .hero-grid,
-      .grid.two,
-      .grid.three {
+      .grid.two {
         grid-template-columns: 1fr;
       }
 
@@ -540,13 +513,6 @@
         padding-right: var(--space-5);
       }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
-    }
   </style>
 </head>
 <body>
@@ -555,7 +521,7 @@
       <div class="brand-row">
         <div class="brand">
           <div class="logo-mark" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 3l7 4v5c0 4.3-2.7 7.8-7 9-4.3-1.2-7-4.7-7-9V7l7-4z"></path>
               <path d="M9.5 12.2l1.7 1.8 3.6-4.2"></path>
             </svg>
@@ -578,7 +544,7 @@
           </div>
         </div>
 
-        <aside class="notice-card" aria-label="Important notice">
+        <aside class="notice-card">
           <p class="eyebrow">Before you begin</p>
           <h2>Complete answers help produce a usable quote.</h2>
           <p>
@@ -606,11 +572,14 @@
       </div>
 
       <form id="quoteForm" action="/api/submit" method="POST">
+        <div class="hp-field" aria-hidden="true">
+          <label for="company_website">Company website</label>
+          <input id="company_website" name="company_website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
         <section class="section">
           <h3 class="section-title">Contact details</h3>
-          <p class="section-copy">
-            Tell us how the receiving agent should contact you and who the quote is for.
-          </p>
+          <p class="section-copy">Tell us how the receiving agent should contact you and who the quote is for.</p>
 
           <div class="grid two">
             <div class="field">
@@ -654,62 +623,28 @@
 
         <section class="section">
           <h3 class="section-title">Insurance type</h3>
-          <p class="section-copy">
-            Select the coverage type that best matches what you want quoted.
-          </p>
+          <p class="section-copy">Select the coverage type that best matches what you want quoted.</p>
 
           <fieldset>
             <legend class="fieldset-label">Coverage requested</legend>
             <div class="option-grid">
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="Auto" required />
-                <span>Auto</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="Homeowners" />
-                <span>Homeowners</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="Condo" />
-                <span>Condo</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="Renters" />
-                <span>Renters</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="Flood" />
-                <span>Flood</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="Life" />
-                <span>Life</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="Boat" />
-                <span>Boat / Watercraft</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="Motorcycle" />
-                <span>Motorcycle</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="GolfCart" />
-                <span>Golf Cart</span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="insuranceType" value="Commercial" />
-                <span>Commercial</span>
-              </label>
+              <label class="choice"><input type="radio" name="insuranceType" value="Auto" required /><span>Auto</span></label>
+              <label class="choice"><input type="radio" name="insuranceType" value="Homeowners" /><span>Homeowners</span></label>
+              <label class="choice"><input type="radio" name="insuranceType" value="Condo" /><span>Condo</span></label>
+              <label class="choice"><input type="radio" name="insuranceType" value="Renters" /><span>Renters</span></label>
+              <label class="choice"><input type="radio" name="insuranceType" value="Flood" /><span>Flood</span></label>
+              <label class="choice"><input type="radio" name="insuranceType" value="Life" /><span>Life</span></label>
+              <label class="choice"><input type="radio" name="insuranceType" value="Boat" /><span>Boat / Watercraft</span></label>
+              <label class="choice"><input type="radio" name="insuranceType" value="Motorcycle" /><span>Motorcycle</span></label>
+              <label class="choice"><input type="radio" name="insuranceType" value="GolfCart" /><span>Golf Cart</span></label>
+              <label class="choice"><input type="radio" name="insuranceType" value="Commercial" /><span>Commercial</span></label>
             </div>
           </fieldset>
         </section>
 
         <section class="section">
           <h3 class="section-title">Risk details</h3>
-          <p class="section-copy">
-            Enter the major details needed for underwriting review. If a field does not apply, leave it blank or note that in the additional comments.
-          </p>
+          <p class="section-copy">Enter the major details needed for underwriting review. If a field does not apply, leave it blank or note that in the additional comments.</p>
 
           <div class="grid two">
             <div class="field">
@@ -741,9 +676,7 @@
 
         <section class="section">
           <h3 class="section-title">Coverage goals</h3>
-          <p class="section-copy">
-            Tell the receiving agent what matters most so the quote can be structured appropriately.
-          </p>
+          <p class="section-copy">Tell the receiving agent what matters most so the quote can be structured appropriately.</p>
 
           <div class="grid two">
             <div class="field">
@@ -774,20 +707,13 @@
 
         <section class="section">
           <h3 class="section-title">Verification</h3>
-          <p class="section-copy">
-            Complete the verification check before submitting your quote request.
-          </p>
+          <p class="section-copy">Complete the verification check before submitting your quote request.</p>
 
-          <div
-            class="cf-turnstile"
-            data-sitekey="0x4AAAAAAEAL7Oi9x0qZnzh8"
-          ></div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAEAL7Oi9x0qZnzh8"></div>
 
           <div class="actions">
             <div class="submit-wrap">
-              <button class="button" type="submit" id="submitButton">
-                Submit quote request
-              </button>
+              <button class="button" type="submit" id="submitButton">Submit quote request</button>
               <div class="helper">
                 By submitting, you authorize contact regarding your request for insurance quote review.
               </div>
@@ -820,14 +746,10 @@
 
       try {
         const formData = new FormData(form);
-        const payload = Object.fromEntries(formData.entries());
 
         const response = await fetch('/api/submit', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
+          body: formData
         });
 
         const result = await response.json();
