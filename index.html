@@ -53,6 +53,7 @@
       --color-primary-highlight: #cedcd8;
       --color-success: #437a22;
       --color-error: #a12c7b;
+      --color-warning: #964219;
 
       --radius-sm: 0.375rem;
       --radius-md: 0.5rem;
@@ -89,7 +90,7 @@
     button, input, select, textarea { font: inherit; }
 
     .page-shell {
-      width: min(1100px, calc(100% - 2rem));
+      width: min(1120px, calc(100% - 2rem));
       margin: 0 auto;
       padding: var(--space-8) 0 var(--space-16);
     }
@@ -314,6 +315,7 @@
     }
 
     .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
     .field {
       display: grid;
@@ -325,6 +327,11 @@
       font-size: var(--text-sm);
       font-weight: 700;
       color: var(--color-text);
+    }
+
+    .field small {
+      color: var(--color-text-faint);
+      font-size: var(--text-xs);
     }
 
     input,
@@ -394,6 +401,41 @@
       box-shadow: inset 0 0 0 1px rgba(1, 105, 111, 0.25);
     }
 
+    .dynamic-panel {
+      display: none;
+      margin-top: var(--space-6);
+      padding: var(--space-6);
+      background: rgba(251, 251, 249, 0.96);
+      border: 1px solid rgba(40, 37, 29, 0.08);
+      border-radius: 22px;
+    }
+
+    .dynamic-panel.active {
+      display: block;
+    }
+
+    .dynamic-panel h4 {
+      margin: 0 0 var(--space-2);
+      font-size: var(--text-lg);
+      line-height: 1.2;
+    }
+
+    .dynamic-panel .panel-copy {
+      margin: 0 0 var(--space-5);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    .callout {
+      margin-top: var(--space-5);
+      padding: var(--space-4);
+      border-radius: var(--radius-xl);
+      background: rgba(206, 220, 216, 0.38);
+      border: 1px solid rgba(1, 105, 111, 0.14);
+      font-size: var(--text-sm);
+      color: #244246;
+    }
+
     .privacy-panel {
       margin: var(--space-6) 0 0;
       padding: var(--space-5);
@@ -446,6 +488,7 @@
       box-shadow: 0 10px 24px rgba(1, 105, 111, 0.18);
     }
 
+    .button:hover { background: var(--color-primary-hover); }
     .button:disabled {
       cursor: not-allowed;
       opacity: 0.65;
@@ -497,12 +540,13 @@
 
     @media (max-width: 900px) {
       .hero-grid,
-      .grid.two {
+      .grid.two,
+      .grid.three {
         grid-template-columns: 1fr;
       }
 
       .page-shell {
-        width: min(100% - 1rem, 1100px);
+        width: min(100% - 1rem, 1120px);
         padding-top: var(--space-4);
       }
 
@@ -640,36 +684,302 @@
               <label class="choice"><input type="radio" name="insuranceType" value="Commercial" /><span>Commercial</span></label>
             </div>
           </fieldset>
-        </section>
 
-        <section class="section">
-          <h3 class="section-title">Risk details</h3>
-          <p class="section-copy">Enter the major details needed for underwriting review. If a field does not apply, leave it blank or note that in the additional comments.</p>
+          <div id="dynamicPrompt" class="callout">
+            Select an insurance type to reveal the quote questions specific to that line of business.
+          </div>
 
-          <div class="grid two">
-            <div class="field">
-              <label for="vehicleInfo">Vehicle or property description</label>
-              <textarea id="vehicleInfo" name="vehicleInfo" placeholder="Examples: 2022 Toyota Camry VIN..., single-family home built in 2008, 24-foot center console, artisan contractor business."></textarea>
+          <div id="panel-Auto" class="dynamic-panel">
+            <h4>Auto quote details</h4>
+            <p class="panel-copy">Collect driver, vehicle, prior coverage, and loss details needed for accurate auto pricing.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="autoVehicles">Vehicles to insure</label>
+                <textarea id="autoVehicles" name="autoVehicles" placeholder="Year, make, model, VIN, garaging address, ownership status."></textarea>
+              </div>
+              <div class="field">
+                <label for="autoDrivers">Drivers and dates of birth</label>
+                <textarea id="autoDrivers" name="autoDrivers" placeholder="List all household drivers, DOBs, marital status, license status."></textarea>
+              </div>
+              <div class="field">
+                <label for="autoCoverage">Requested auto coverage</label>
+                <textarea id="autoCoverage" name="autoCoverage" placeholder="Liability only, full coverage, comp/collision deductibles, UM, rental, towing."></textarea>
+              </div>
+              <div class="field">
+                <label for="autoPriorInsurance">Current or prior carrier</label>
+                <input id="autoPriorInsurance" name="autoPriorInsurance" type="text" />
+              </div>
+              <div class="field">
+                <label for="autoViolations">Tickets, accidents, or claims</label>
+                <textarea id="autoViolations" name="autoViolations" placeholder="Include dates, at-fault status, DUI, suspensions, or claim history."></textarea>
+              </div>
+              <div class="field">
+                <label for="autoUse">Vehicle use</label>
+                <input id="autoUse" name="autoUse" type="text" placeholder="Commute, pleasure, rideshare, business use, annual mileage." />
+              </div>
             </div>
-            <div class="field">
-              <label for="driversOrOccupants">Drivers, residents, or operators</label>
-              <textarea id="driversOrOccupants" name="driversOrOccupants" placeholder="List drivers, household members, operators, or people to be covered, plus dates of birth if applicable."></textarea>
+          </div>
+
+          <div id="panel-Homeowners" class="dynamic-panel">
+            <h4>Homeowners quote details</h4>
+            <p class="panel-copy">Focus on occupancy, construction, roof, protection class, and prior loss information.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="homeAddress">Property address</label>
+                <input id="homeAddress" name="homeAddress" type="text" />
+              </div>
+              <div class="field">
+                <label for="homeOccupancy">Occupancy type</label>
+                <input id="homeOccupancy" name="homeOccupancy" type="text" placeholder="Primary, secondary, seasonal, rental, vacant." />
+              </div>
+              <div class="field">
+                <label for="homeYearBuilt">Year built</label>
+                <input id="homeYearBuilt" name="homeYearBuilt" type="text" />
+              </div>
+              <div class="field">
+                <label for="homeSquareFeet">Square footage</label>
+                <input id="homeSquareFeet" name="homeSquareFeet" type="text" />
+              </div>
+              <div class="field">
+                <label for="homeConstruction">Construction type</label>
+                <input id="homeConstruction" name="homeConstruction" type="text" placeholder="Frame, masonry, stucco, concrete block, etc." />
+              </div>
+              <div class="field">
+                <label for="homeRoof">Roof details</label>
+                <input id="homeRoof" name="homeRoof" type="text" placeholder="Roof type and age." />
+              </div>
+              <div class="field">
+                <label for="homeSystems">Electrical, plumbing, HVAC updates</label>
+                <textarea id="homeSystems" name="homeSystems" placeholder="Provide update years if known."></textarea>
+              </div>
+              <div class="field">
+                <label for="homeProtection">Protection features</label>
+                <textarea id="homeProtection" name="homeProtection" placeholder="Alarm, sprinkler, gated community, wind mitigation, shutters, hydrant distance."></textarea>
+              </div>
+              <div class="field">
+                <label for="homeLiabilityHazards">Dogs, pool, trampoline, business use</label>
+                <textarea id="homeLiabilityHazards" name="homeLiabilityHazards" placeholder="List any liability concerns or special exposures."></textarea>
+              </div>
+              <div class="field">
+                <label for="homeClaims">Prior property claims</label>
+                <textarea id="homeClaims" name="homeClaims" placeholder="Loss dates, type of loss, amount paid, open/closed status."></textarea>
+              </div>
             </div>
-            <div class="field">
-              <label for="currentCoverage">Current insurance company</label>
-              <input id="currentCoverage" name="currentCoverage" type="text" />
+          </div>
+
+          <div id="panel-Condo" class="dynamic-panel">
+            <h4>Condo quote details</h4>
+            <p class="panel-copy">Collect unit details, occupancy, association information, and desired contents/liability coverage.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="condoAddress">Unit address</label>
+                <input id="condoAddress" name="condoAddress" type="text" />
+              </div>
+              <div class="field">
+                <label for="condoOccupancy">Occupancy</label>
+                <input id="condoOccupancy" name="condoOccupancy" type="text" placeholder="Owner-occupied, seasonal, rental." />
+              </div>
+              <div class="field">
+                <label for="condoAssociation">Association name</label>
+                <input id="condoAssociation" name="condoAssociation" type="text" />
+              </div>
+              <div class="field">
+                <label for="condoYearBuilt">Year built</label>
+                <input id="condoYearBuilt" name="condoYearBuilt" type="text" />
+              </div>
+              <div class="field">
+                <label for="condoCoverage">Requested condo coverage</label>
+                <textarea id="condoCoverage" name="condoCoverage" placeholder="Contents, liability, loss assessment, unit additions/alterations."></textarea>
+              </div>
+              <div class="field">
+                <label for="condoClaims">Prior claims</label>
+                <textarea id="condoClaims" name="condoClaims" placeholder="Any prior water, theft, liability, or hurricane-related losses."></textarea>
+              </div>
             </div>
-            <div class="field">
-              <label for="expirationDate">Current policy expiration date</label>
-              <input id="expirationDate" name="expirationDate" type="date" />
+          </div>
+
+          <div id="panel-Renters" class="dynamic-panel">
+            <h4>Renters quote details</h4>
+            <p class="panel-copy">Collect occupancy, landlord/property details, contents value, and any liability concerns.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="rentersAddress">Rental address</label>
+                <input id="rentersAddress" name="rentersAddress" type="text" />
+              </div>
+              <div class="field">
+                <label for="rentersOccupancy">Occupancy</label>
+                <input id="rentersOccupancy" name="rentersOccupancy" type="text" placeholder="Primary, roommates, student housing, etc." />
+              </div>
+              <div class="field">
+                <label for="rentersContents">Estimated personal property value</label>
+                <input id="rentersContents" name="rentersContents" type="text" />
+              </div>
+              <div class="field">
+                <label for="rentersLiability">Liability concerns</label>
+                <textarea id="rentersLiability" name="rentersLiability" placeholder="Pets, prior liability claims, firearms, etc."></textarea>
+              </div>
             </div>
-            <div class="field">
-              <label for="priorClaims">Prior claims or losses</label>
-              <textarea id="priorClaims" name="priorClaims" placeholder="List dates, type of loss, and whether any claims were paid."></textarea>
+          </div>
+
+          <div id="panel-Flood" class="dynamic-panel">
+            <h4>Flood quote details</h4>
+            <p class="panel-copy">Flood quoting depends on location, elevation, occupancy, and building characteristics.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="floodAddress">Property address</label>
+                <input id="floodAddress" name="floodAddress" type="text" />
+              </div>
+              <div class="field">
+                <label for="floodOccupancy">Occupancy type</label>
+                <input id="floodOccupancy" name="floodOccupancy" type="text" />
+              </div>
+              <div class="field">
+                <label for="floodType">Building type</label>
+                <input id="floodType" name="floodType" type="text" placeholder="Single-family, condo, rental, etc." />
+              </div>
+              <div class="field">
+                <label for="floodElevation">Elevation certificate or flood zone info</label>
+                <textarea id="floodElevation" name="floodElevation" placeholder="Provide if known."></textarea>
+              </div>
+              <div class="field">
+                <label for="floodCoverage">Coverage desired</label>
+                <textarea id="floodCoverage" name="floodCoverage" placeholder="Building, contents, both, lender-required amount, etc."></textarea>
+              </div>
+              <div class="field">
+                <label for="floodClaims">Prior flood losses</label>
+                <textarea id="floodClaims" name="floodClaims" placeholder="Include dates and claim amounts if known."></textarea>
+              </div>
             </div>
-            <div class="field">
-              <label for="ticketsAccidents">Tickets, accidents, or violations</label>
-              <textarea id="ticketsAccidents" name="ticketsAccidents" placeholder="Include dates and brief details if applicable."></textarea>
+          </div>
+
+          <div id="panel-Life" class="dynamic-panel">
+            <h4>Life insurance details</h4>
+            <p class="panel-copy">Collect the basics needed before a life quote conversation and underwriting review.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="lifeAmount">Requested face amount</label>
+                <input id="lifeAmount" name="lifeAmount" type="text" />
+              </div>
+              <div class="field">
+                <label for="lifeTerm">Term length or policy type</label>
+                <input id="lifeTerm" name="lifeTerm" type="text" placeholder="10-year, 20-year, whole life, universal life." />
+              </div>
+              <div class="field">
+                <label for="lifeTobacco">Tobacco or nicotine use</label>
+                <input id="lifeTobacco" name="lifeTobacco" type="text" />
+              </div>
+              <div class="field">
+                <label for="lifeHealth">Major health history</label>
+                <textarea id="lifeHealth" name="lifeHealth" placeholder="Conditions, medications, surgeries, height/weight, recent diagnoses."></textarea>
+              </div>
+              <div class="field">
+                <label for="lifeOccupation">Occupation and hobbies</label>
+                <textarea id="lifeOccupation" name="lifeOccupation" placeholder="Aviation, diving, hazardous work, travel, etc."></textarea>
+              </div>
+              <div class="field">
+                <label for="lifeExisting">Existing life insurance</label>
+                <input id="lifeExisting" name="lifeExisting" type="text" />
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-Boat" class="dynamic-panel">
+            <h4>Boat / watercraft details</h4>
+            <p class="panel-copy">Collect hull, motor, storage, usage, and operator information.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="boatDetails">Boat details</label>
+                <textarea id="boatDetails" name="boatDetails" placeholder="Year, make, model, length, horsepower, HIN, value."></textarea>
+              </div>
+              <div class="field">
+                <label for="boatUsage">Watercraft usage</label>
+                <textarea id="boatUsage" name="boatUsage" placeholder="Private pleasure, fishing, seasonal use, where kept or moored."></textarea>
+              </div>
+              <div class="field">
+                <label for="boatOperators">Operators</label>
+                <textarea id="boatOperators" name="boatOperators" placeholder="List operators, ages, and boating experience."></textarea>
+              </div>
+              <div class="field">
+                <label for="boatClaims">Prior boating claims or violations</label>
+                <textarea id="boatClaims" name="boatClaims" placeholder="Accidents, losses, DUIs, marine claims."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-Motorcycle" class="dynamic-panel">
+            <h4>Motorcycle details</h4>
+            <p class="panel-copy">Collect cycle details, riders, prior coverage, and violation history.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="motorcycleDetails">Motorcycle details</label>
+                <textarea id="motorcycleDetails" name="motorcycleDetails" placeholder="Year, make, model, VIN, value, custom parts."></textarea>
+              </div>
+              <div class="field">
+                <label for="motorcycleRiders">Riders</label>
+                <textarea id="motorcycleRiders" name="motorcycleRiders" placeholder="List riders, ages, experience, endorsement status."></textarea>
+              </div>
+              <div class="field">
+                <label for="motorcycleUse">Use and storage</label>
+                <input id="motorcycleUse" name="motorcycleUse" type="text" placeholder="Pleasure, commute, seasonal, garaged, etc." />
+              </div>
+              <div class="field">
+                <label for="motorcycleClaims">Violations or claims</label>
+                <textarea id="motorcycleClaims" name="motorcycleClaims" placeholder="Tickets, accidents, theft, prior claims."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-GolfCart" class="dynamic-panel">
+            <h4>Golf cart details</h4>
+            <p class="panel-copy">Collect cart, usage, driver, and storage information for accurate rating.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="golfCartDetails">Golf cart details</label>
+                <textarea id="golfCartDetails" name="golfCartDetails" placeholder="Year, make, model, serial/VIN, modifications, value."></textarea>
+              </div>
+              <div class="field">
+                <label for="golfCartUse">Usage and location</label>
+                <textarea id="golfCartUse" name="golfCartUse" placeholder="Private community, golf course use, street legal, storage address."></textarea>
+              </div>
+              <div class="field">
+                <label for="golfCartDrivers">Operators</label>
+                <textarea id="golfCartDrivers" name="golfCartDrivers" placeholder="Who drives it and whether minors operate it."></textarea>
+              </div>
+              <div class="field">
+                <label for="golfCartClaims">Prior losses</label>
+                <textarea id="golfCartClaims" name="golfCartClaims" placeholder="Any claims, accidents, or thefts."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-Commercial" class="dynamic-panel">
+            <h4>Commercial / business details</h4>
+            <p class="panel-copy">Collect the type of business, operations, payroll/revenue, vehicles, and property exposures.</p>
+            <div class="grid two">
+              <div class="field">
+                <label for="commercialBusinessName">Business name</label>
+                <input id="commercialBusinessName" name="commercialBusinessName" type="text" />
+              </div>
+              <div class="field">
+                <label for="commercialOperations">Type of business / operations</label>
+                <input id="commercialOperations" name="commercialOperations" type="text" />
+              </div>
+              <div class="field">
+                <label for="commercialYears">Years in business</label>
+                <input id="commercialYears" name="commercialYears" type="text" />
+              </div>
+              <div class="field">
+                <label for="commercialRevenue">Annual revenue / payroll</label>
+                <input id="commercialRevenue" name="commercialRevenue" type="text" />
+              </div>
+              <div class="field">
+                <label for="commercialExposures">Property, liability, or vehicle exposures</label>
+                <textarea id="commercialExposures" name="commercialExposures" placeholder="Building owned or leased, tools/equipment, autos, employees, subcontractors."></textarea>
+              </div>
+              <div class="field">
+                <label for="commercialClaims">Prior claims or cancellations</label>
+                <textarea id="commercialClaims" name="commercialClaims" placeholder="General liability, commercial auto, workers comp, property claims, cancellations."></textarea>
+              </div>
             </div>
           </div>
         </section>
@@ -734,6 +1044,35 @@
     const form = document.getElementById('quoteForm');
     const submitButton = document.getElementById('submitButton');
     const responseMessage = document.getElementById('responseMessage');
+    const insuranceTypeInputs = document.querySelectorAll('input[name="insuranceType"]');
+    const dynamicPrompt = document.getElementById('dynamicPrompt');
+    const panels = document.querySelectorAll('.dynamic-panel');
+
+    function updatePanels() {
+      const selected = document.querySelector('input[name="insuranceType"]:checked');
+      panels.forEach(panel => panel.classList.remove('active'));
+
+      if (!selected) {
+        dynamicPrompt.style.display = 'block';
+        dynamicPrompt.textContent = 'Select an insurance type to reveal the quote questions specific to that line of business.';
+        return;
+      }
+
+      const panel = document.getElementById(`panel-${selected.value}`);
+      if (panel) {
+        panel.classList.add('active');
+        dynamicPrompt.style.display = 'none';
+      } else {
+        dynamicPrompt.style.display = 'block';
+        dynamicPrompt.textContent = 'This quote type is selected, but its custom section has not been configured yet.';
+      }
+    }
+
+    insuranceTypeInputs.forEach(input => {
+      input.addEventListener('change', updatePanels);
+    });
+
+    updatePanels();
 
     form.addEventListener('submit', async function (event) {
       event.preventDefault();
@@ -761,6 +1100,7 @@
         responseMessage.textContent = result.message || 'Your quote request was submitted successfully.';
         responseMessage.classList.add('success');
         form.reset();
+        updatePanels();
 
         if (window.turnstile) {
           window.turnstile.reset();
