@@ -773,11 +773,10 @@
     <div class="field">
       <label for="homeCurrentPolicyExpiration">Current policy expiration date</label>
       <input id="homeCurrentPolicyExpiration" name="homeCurrentPolicyExpiration" type="date" />
-      <small>Use this when it is not a new purchase.</small>
     </div>
   </div>
 
-  <div id="homeClosingFields" class="subsection-toggle" style="display:none; margin-top:1rem;">
+  <div id="homeClosingFields" class="subsection-toggle" hidden>
     <div class="grid two">
       <div class="field">
         <label for="homeEscrow">Will insurance be escrowed?</label>
@@ -897,7 +896,7 @@
     </div>
   </div>
 
-  <div id="homePoolFields" class="subsection-toggle" style="display:none; margin-top:1rem;">
+  <div id="homePoolFields" class="subsection-toggle" hidden>
     <div class="grid two">
       <div class="field">
         <label for="homePoolType">Pool type</label>
@@ -915,7 +914,6 @@
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
-        <small>If pool = yes, this must be completed.</small>
       </div>
 
       <div class="field">
