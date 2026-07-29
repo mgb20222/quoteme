@@ -866,9 +866,21 @@
         <input id="autoVehicle1RegisteredOwner" name="autoVehicle1RegisteredOwner" type="text" />
       </div>
       <div class="field">
-        <label for="autoVehicle1PrimaryUse">Vehicle #1 primary use</label>
-        <input id="autoVehicle1PrimaryUse" name="autoVehicle1PrimaryUse" type="text" placeholder="Commute, pleasure, business, rideshare, etc." />
-      </div>
+  <label for="autoVehicle1RegisteredOwner">Registered owner of Vehicle #1</label>
+  <select id="autoVehicle1RegisteredOwner" name="autoVehicle1RegisteredOwner">
+    <option value="">Select one</option>
+    <option value="Primary contact">Primary contact (listed at top of form)</option>
+    <option value="Driver #1">Driver #1</option>
+    <option value="Driver #2">Driver #2</option>
+    <option value="Driver #3">Driver #3</option>
+    <option value="Driver #4">Driver #4</option>
+    <option value="Other">Other (not listed above)</option>
+  </select>
+</div>
+<div class="field">
+  <label for="autoVehicle1RegisteredOwnerOther">If Other, enter registered owner name</label>
+  <input id="autoVehicle1RegisteredOwnerOther" name="autoVehicle1RegisteredOwnerOther" type="text" />
+</div>
       <div class="field">
         <label for="autoVehicle1GaragingZip">Vehicle #1 garaging ZIP</label>
         <input id="autoVehicle1GaragingZip" name="autoVehicle1GaragingZip" type="text" />
