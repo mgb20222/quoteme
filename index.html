@@ -535,6 +535,10 @@
       overflow: hidden !important;
     }
 
+    .stack-top {
+      margin-top: var(--space-4);
+    }
+
     .footer-note {
       margin-top: var(--space-8);
       text-align: center;
@@ -809,7 +813,7 @@
               </div>
             </div>
 
-            <div class="grid two" style="margin-top:1rem;">
+            <div class="grid two stack-top">
               <div class="field">
                 <label for="homePurchasePrice">Purchase price</label>
                 <input id="homePurchasePrice" name="homePurchasePrice" type="text" />
@@ -851,7 +855,7 @@
               </div>
             </div>
 
-            <div class="grid two" style="margin-top:1rem;">
+            <div class="grid two stack-top">
               <fieldset class="field">
                 <legend class="fieldset-label">Mitigation report</legend>
                 <div class="option-grid">
@@ -880,7 +884,7 @@
               </fieldset>
             </div>
 
-            <div class="grid two" style="margin-top:1rem;">
+            <div class="grid two stack-top">
               <div class="field">
                 <label for="homePool">Is there a pool?</label>
                 <select id="homePool" name="homePool">
@@ -936,7 +940,7 @@
               </div>
             </div>
 
-            <div class="grid two" style="margin-top:1rem;">
+            <div class="grid two stack-top">
               <div class="field">
                 <label for="homeAnimals">Animals and bite history</label>
                 <textarea id="homeAnimals" name="homeAnimals" placeholder="List breeds and whether there is any bite history."></textarea>
@@ -1198,30 +1202,22 @@
               <textarea id="coverageNeeds" name="coverageNeeds" placeholder="Examples: full coverage, higher liability limits, wind coverage, replacement cost, umbrella consideration, commercial use."></textarea>
             </div>
             <div class="field">
-              <label for="contactPreference">Preferred contact method</label>
-              <select id="contactPreference" name="contactPreference">
-                <option value="">Select one</option>
-                <option value="Phone">Phone</option>
-                <option value="Email">Email</option>
-                <option value="Text">Text</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="bestTime">Best time to reach you</label>
-              <input id="bestTime" name="bestTime" type="text" placeholder="Morning, afternoon, after 5 PM, etc." />
-            </div>
-            <div class="field">
-              <label for="additionalNotes">Anything else the agent should know?</label>
-              <textarea id="additionalNotes" name="additionalNotes" placeholder="Add anything that may help with quote preparation."></textarea>
+              <label for="notes">Additional comments</label>
+              <textarea id="notes" name="notes" placeholder="Anything else the quoting agent should know before preparing options."></textarea>
             </div>
           </div>
 
           <div class="privacy-panel">
-            <h3>Privacy reminder</h3>
+            <h3>Privacy and security boundary</h3>
             <p>
-              This intake is for quote preparation only. Please do not include Social Security numbers, banking details, or other highly sensitive identity information in this form.
+              This form is intentionally designed not to request Social Security numbers or similar high-risk personal identifiers. If additional protected information is needed to complete identity verification or finalize coverage, the receiving licensed agent should request it directly by phone.
             </p>
           </div>
+        </section>
+
+        <section class="section">
+          <h3 class="section-title">Verification</h3>
+          <p class="section-copy">Complete the verification check before submitting your quote request.</p>
 
           <div class="cf-turnstile" data-sitekey="0x4AAAAAAEAL7Oi9x0qZnzh8"></div>
 
