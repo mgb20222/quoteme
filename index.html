@@ -1241,217 +1241,337 @@
       <label for="autoVehicle4Details">Vehicle #4 details</label>
       <textarea
         id="autoVehicle4Details"
-        name="autoVehicle4Details"
-        placeholder="Year, make, model, body style, VIN."
-      ></textarea>
-    </div>
-    <div class="field">
-      <label for="autoVehicle4Ownership">Vehicle #4 ownership status</label>
-      <input
-        id="autoVehicle4Ownership"
-        name="autoVehicle4Ownership"
-        type="text"
-      />
-    </div>
-    <div class="field">
-      <label for="autoVehicle4RegisteredOwner">Vehicle #4 registered owner</label>
-      <input
-        id="autoVehicle4RegisteredOwner"
-        name="autoVehicle4RegisteredOwner"
-        type="text"
-      />
-    </div>
-    <div class="field">
-      <label for="autoVehicle4PrimaryUse">Vehicle #4 primary use</label>
-      <input
-        id="autoVehicle4PrimaryUse"
-        name="autoVehicle4PrimaryUse"
-        type="text"
-      />
-    </div>
-    <div class="field">
-      <label for="autoVehicle4GaragingZip">Vehicle #4 garaging ZIP</label>
-      <input id="autoVehicle4GaragingZip" name="autoVehicle4GaragingZip" type="text" />
-    </div>
-  </div>
+        document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('quoteForm');
+  const submitButton = document.getElementById('submitButton');
+  const responseMessage = document.getElementById('responseMessage');
+  const insuranceTypeInputs = document.querySelectorAll('input[name="insuranceType"]');
+  const dynamicPrompt = document.getElementById('dynamicPrompt');
+  const panels = document.querySelectorAll('.dynamic-panel');
 
-  <!-- Coverage / prior insurance & violations (from your original panel) -->
-  <div class="grid two stack-top">
-    <div class="field">
-      <label for="autoCoverage">Requested auto coverage</label>
-      <textarea
-        id="autoCoverage"
-        name="autoCoverage"
-        placeholder="Liability only, full coverage, desired liability limits, comp/collision deductibles, UM, rental, towing."
-      ></textarea>
-    </div>
-    <div class="field">
-      <label for="autoPriorInsurance">Current or prior auto insurance company</label>
-      <input
-        id="autoPriorInsurance"
-        name="autoPriorInsurance"
-        type="text"
-        placeholder="If none, write NONE."
-      />
-    </div>
-    <div class="field">
-      <label for="autoViolations">Tickets, accidents, or claims in the last 5 years</label>
-      <textarea
-        id="autoViolations"
-        name="autoViolations"
-        placeholder="Include dates, at-fault status, DUI, suspensions, or claim history if known."
-      ></textarea>
-    </div>
-    <div class="field">
-      <label for="autoUseNotes">Anything else about how the vehicles are used?</label>
-      <textarea
-        id="autoUseNotes"
-        name="autoUseNotes"
-        placeholder="Rideshare, delivery, business use, or other details that may affect rating."
-      ></textarea>
-    </div>
-  </div>
-</div>
+  let visibleAutoDriverCount = 1;
+  let visibleAutoVehicleCount = 1;
 
-          <div id="panel-Homeowners" class="dynamic-panel">
-            <h4>Homeowners quote details</h4>
-            <p class="panel-copy">
-              Please provide the property, occupancy, and protection details needed for accurate homeowners quote review.
-            </p>
+  function getSelectedInsuranceType() {
+    const selected = document.querySelector('input[name="insuranceType"]:checked');
+    return selected ? selected.value : null;
+  }
 
-            <div class="grid two">
-              <div class="field">
-                <label for="homeUseType">Home type</label>
-                <select id="homeUseType" name="homeUseType">
-                  <option value="">Select one</option>
-                  <option value="Primary residence">Primary residence</option>
-                  <option value="Secondary / vacation home">Secondary / vacation home</option>
-                </select>
-              </div>
+  function hideAllPanels() {
+    panels.forEach(function (panel) {
+      panel.classList.remove('active');
+      panel.hidden = true;
+    });
+  }
 
-              <div class="field">
-                <label for="homeOccupancyMonths">Months occupied each year</label>
-                <input id="homeOccupancyMonths" name="homeOccupancyMonths" type="text" placeholder="Example: 12, 6, seasonal" />
-              </div>
+  function showPanel(panel) {
+    if (!panel) return;
+    panel.classList.add('active');
+    panel.hidden = false;
+  }
 
-              <div class="field">
-                <label for="homeAddress">Physical address of dwelling</label>
-                <input id="homeAddress" name="homeAddress" type="text" />
-              </div>
+  function showDynamicPrompt(message) {
+    if (!dynamicPrompt) return;
+    dynamicPrompt.style.display = 'block';
+    dynamicPrompt.textContent = message;
+  }
 
-              <div class="field">
-                <label for="homeCounty">County</label>
-                <input id="homeCounty" name="homeCounty" type="text" />
-              </div>
+  function hideDynamicPrompt() {
+    if (!dynamicPrompt) return;
+    dynamicPrompt.style.display = 'none';
+    dynamicPrompt.textContent = '';
+  }
 
-              <div class="field">
-                <label for="homeMailingAddress">Mailing address if different</label>
-                <input id="homeMailingAddress" name="homeMailingAddress" type="text" />
-              </div>
+  function setElementHidden(id, shouldHide) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.hidden = shouldHide;
+    }
+  }
 
-              <div class="field">
-                <label for="homeNamedInsured">Names exactly as they appear on the deed</label>
-                <input id="homeNamedInsured" name="homeNamedInsured" type="text" />
-              </div>
+  function clearFieldValue(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-              <div class="field">
-                <label for="homeClosingOrRenewal">New purchase / closing?</label>
-                <select id="homeClosingOrRenewal" name="homeClosingOrRenewal">
-                  <option value="">Select one</option>
-                  <option value="No">No</option>
-                  <option value="Yes">Yes</option>
-                </select>
-              </div>
+    if (el.tagName === 'SELECT' || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      el.value = '';
+    }
+  }
 
-              <div class="field">
-                <label for="homeCurrentPolicyExpiration">Current policy expiration date</label>
-                <input id="homeCurrentPolicyExpiration" name="homeCurrentPolicyExpiration" type="date" />
-              </div>
-            </div>
+  function clearFieldsByIds(ids) {
+    ids.forEach(function (id) {
+      clearFieldValue(id);
+    });
+  }
 
-            <div id="homeClosingFields" class="subsection-toggle" hidden>
-              <div class="grid two">
-                <div class="field">
-                  <label for="homeEscrow">Will insurance be escrowed?</label>
-                  <select id="homeEscrow" name="homeEscrow">
-                    <option value="">Select one</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                    <option value="Not sure yet">Not sure yet</option>
-                  </select>
-                </div>
+  function setRequired(id, required) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.required = required;
+    }
+  }
 
-                <div class="field">
-                  <label for="homeExpectedClosingDate">Expected closing date</label>
-                  <input id="homeExpectedClosingDate" name="homeExpectedClosingDate" type="date" />
-                </div>
+  function resetHomeownersConditionalState() {
+    setElementHidden('homeClosingFields', true);
+    setElementHidden('homePoolFields', true);
 
-                <div class="field">
-                  <label for="homeRealtorContact">Realtor contact</label>
-                  <textarea id="homeRealtorContact" name="homeRealtorContact" placeholder="Name, phone number, and email."></textarea>
-                </div>
+    setRequired('homePoolFence', false);
+    setRequired('homePoolScreen', false);
 
-                <div class="field">
-                  <label for="homeLenderContact">Lender contact</label>
-                  <textarea id="homeLenderContact" name="homeLenderContact" placeholder="Lender, processor, phone number, and email."></textarea>
-                </div>
-              </div>
-            </div>
+    clearFieldValue('homePoolFence');
+    clearFieldValue('homePoolScreen');
+    clearFieldValue('homePoolType');
+    clearFieldValue('homePoolFeatures');
+    clearFieldValue('homeEscrow');
+    clearFieldValue('homeExpectedClosingDate');
+    clearFieldValue('homeRealtorContact');
+    clearFieldValue('homeLenderContact');
+  }
 
-            <div class="grid two stack-top">
-              <div class="field">
-                <label for="homePurchasePrice">Purchase price</label>
-                <input id="homePurchasePrice" name="homePurchasePrice" type="text" />
-              </div>
+  function updateHomeownersConditionalFields() {
+    const homeClosingOrRenewal = document.getElementById('homeClosingOrRenewal');
+    const homePool = document.getElementById('homePool');
 
-              <div class="field">
-                <label for="homeMarketValue">Estimated market value</label>
-                <input id="homeMarketValue" name="homeMarketValue" type="text" />
-              </div>
+    const showClosingFields = homeClosingOrRenewal && homeClosingOrRenewal.value === 'Yes';
+    const showPoolFields = homePool && homePool.value === 'Yes';
 
-              <div class="field">
-                <label for="homeYearBuilt">Year built</label>
-                <input id="homeYearBuilt" name="homeYearBuilt" type="text" />
-              </div>
+    setElementHidden('homeClosingFields', !showClosingFields);
+    setElementHidden('homePoolFields', !showPoolFields);
 
-              <div class="field">
-                <label for="homeSquareFeet">Living square footage</label>
-                <input id="homeSquareFeet" name="homeSquareFeet" type="text" />
-              </div>
+    setRequired('homePoolFence', !!showPoolFields);
+    setRequired('homePoolScreen', !!showPoolFields);
 
-              <div class="field">
-                <label for="homeConstruction">Construction type</label>
-                <input id="homeConstruction" name="homeConstruction" type="text" placeholder="Frame, masonry, concrete block, stucco, etc." />
-              </div>
+    if (!showPoolFields) {
+      clearFieldValue('homePoolFence');
+      clearFieldValue('homePoolScreen');
+      clearFieldValue('homePoolType');
+      clearFieldValue('homePoolFeatures');
+    }
 
-              <div class="field">
-                <label for="homeRoofYear">Last year roof was replaced or installed</label>
-                <input id="homeRoofYear" name="homeRoofYear" type="text" />
-              </div>
+    if (!showClosingFields) {
+      clearFieldValue('homeEscrow');
+      clearFieldValue('homeExpectedClosingDate');
+      clearFieldValue('homeRealtorContact');
+      clearFieldValue('homeLenderContact');
+    }
+  }
 
-              <div class="field">
-                <label for="homeSystems">Updates or renovations</label>
-                <textarea id="homeSystems" name="homeSystems" placeholder="Roof, electrical, plumbing, HVAC, windows, or other important improvements."></textarea>
-              </div>
+  function bindHomeownersConditionalFields() {
+    const homeClosingOrRenewal = document.getElementById('homeClosingOrRenewal');
+    const homePool = document.getElementById('homePool');
 
-              <div class="field">
-                <label for="homeSecurity">Security and protective features</label>
-                <textarea id="homeSecurity" name="homeSecurity" placeholder="Gated entrance, manned gate, local alarm, central alarm, deadbolts, shutters, mitigation features, etc."></textarea>
-              </div>
-            </div>
+    if (homeClosingOrRenewal) {
+      homeClosingOrRenewal.onchange = updateHomeownersConditionalFields;
+    }
 
-            <div class="grid two stack-top">
-              <fieldset class="field">
-                <legend class="fieldset-label">Mitigation report</legend>
-                <div class="option-grid">
-                  <label class="choice"><input type="radio" name="homeMitigationReportStatus" value="I have"><span>I have</span></label>
-                  <label class="choice"><input type="radio" name="homeMitigationReportStatus" value="I ordered"><span>I ordered</span></label>
-                  <label class="choice"><input type="radio" name="homeMitigationReportStatus" value="I do not have"><span>I do not have</span></label>
-                </div>
-              </fieldset>
+    if (homePool) {
+      homePool.onchange = updateHomeownersConditionalFields;
+    }
 
-              <fieldset class="field">
-                <legend class="fieldset-label">4-point inspection</legend>
+    updateHomeownersConditionalFields();
+  }
+
+  function updateAutoDriverBlocks() {
+    setElementHidden('autoDriver2Block', visibleAutoDriverCount < 2);
+    setElementHidden('autoDriver3Block', visibleAutoDriverCount < 3);
+    setElementHidden('autoDriver4Block', visibleAutoDriverCount < 4);
+
+    const addAutoDriverButton = document.getElementById('addAutoDriverButton');
+    if (addAutoDriverButton) {
+      addAutoDriverButton.hidden = visibleAutoDriverCount >= 4;
+    }
+  }
+
+  function updateAutoVehicleBlocks() {
+    setElementHidden('autoVehicle2Block', visibleAutoVehicleCount < 2);
+    setElementHidden('autoVehicle3Block', visibleAutoVehicleCount < 3);
+    setElementHidden('autoVehicle4Block', visibleAutoVehicleCount < 4);
+
+    const addAutoVehicleButton = document.getElementById('addAutoVehicleButton');
+    if (addAutoVehicleButton) {
+      addAutoVehicleButton.hidden = visibleAutoVehicleCount >= 4;
+    }
+  }
+
+  function resetAutoProgressiveSections() {
+    visibleAutoDriverCount = 1;
+    visibleAutoVehicleCount = 1;
+
+    clearFieldsByIds([
+      'autoDriver2Name',
+      'autoDriver2Dob',
+      'autoDriver2YearsLicensed',
+      'autoDriver2Occupation',
+      'autoDriver2PrimaryVehicle',
+      'autoDriver2LicenseState',
+      'autoDriver3Name',
+      'autoDriver3Dob',
+      'autoDriver3YearsLicensed',
+      'autoDriver3Occupation',
+      'autoDriver3PrimaryVehicle',
+      'autoDriver3LicenseState',
+      'autoDriver4Name',
+      'autoDriver4Dob',
+      'autoDriver4YearsLicensed',
+      'autoDriver4Occupation',
+      'autoDriver4PrimaryVehicle',
+      'autoDriver4LicenseState',
+      'autoVehicle2Year',
+      'autoVehicle2Make',
+      'autoVehicle2Model',
+      'autoVehicle2Type',
+      'autoVehicle2Vin',
+      'autoVehicle2Ownership',
+      'autoVehicle2RegisteredOwner',
+      'autoVehicle2PrimaryUse',
+      'autoVehicle2GaragingZip',
+      'autoVehicle3Year',
+      'autoVehicle3Make',
+      'autoVehicle3Model',
+      'autoVehicle3Type',
+      'autoVehicle3Vin',
+      'autoVehicle3Ownership',
+      'autoVehicle3RegisteredOwner',
+      'autoVehicle3PrimaryUse',
+      'autoVehicle3GaragingZip',
+      'autoVehicle4Year',
+      'autoVehicle4Make',
+      'autoVehicle4Model',
+      'autoVehicle4Type',
+      'autoVehicle4Vin',
+      'autoVehicle4Ownership',
+      'autoVehicle4RegisteredOwner',
+      'autoVehicle4PrimaryUse',
+      'autoVehicle4GaragingZip'
+    ]);
+
+    updateAutoDriverBlocks();
+    updateAutoVehicleBlocks();
+  }
+
+  function bindAutoProgressiveFields() {
+    const addAutoDriverButton = document.getElementById('addAutoDriverButton');
+    const addAutoVehicleButton = document.getElementById('addAutoVehicleButton');
+
+    if (addAutoDriverButton && !addAutoDriverButton.dataset.bound) {
+      addAutoDriverButton.addEventListener('click', function () {
+        if (visibleAutoDriverCount < 4) {
+          visibleAutoDriverCount += 1;
+          updateAutoDriverBlocks();
+        }
+      });
+      addAutoDriverButton.dataset.bound = 'true';
+    }
+
+    if (addAutoVehicleButton && !addAutoVehicleButton.dataset.bound) {
+      addAutoVehicleButton.addEventListener('click', function () {
+        if (visibleAutoVehicleCount < 4) {
+          visibleAutoVehicleCount += 1;
+          updateAutoVehicleBlocks();
+        }
+      });
+      addAutoVehicleButton.dataset.bound = 'true';
+    }
+
+    updateAutoDriverBlocks();
+    updateAutoVehicleBlocks();
+  }
+
+  function resetAllConditionalSections() {
+    resetHomeownersConditionalState();
+    resetAutoProgressiveSections();
+  }
+
+  function updatePanels() {
+    const selectedType = getSelectedInsuranceType();
+
+    hideAllPanels();
+    resetAllConditionalSections();
+
+    if (!selectedType) {
+      showDynamicPrompt('Select an insurance type to reveal the quote questions specific to that line of business.');
+      return;
+    }
+
+    const activePanel = document.getElementById('panel-' + selectedType);
+
+    if (!activePanel) {
+      showDynamicPrompt('This quote type is selected, but its custom section has not been configured yet.');
+      return;
+    }
+
+    showPanel(activePanel);
+    hideDynamicPrompt();
+
+    if (selectedType === 'Homeowners') {
+      bindHomeownersConditionalFields();
+    }
+
+    if (selectedType === 'Auto') {
+      bindAutoProgressiveFields();
+    }
+  }
+
+  insuranceTypeInputs.forEach(function (input) {
+    input.addEventListener('change', updatePanels);
+  });
+
+  updatePanels();
+
+  if (!form) return;
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    if (responseMessage) {
+      responseMessage.className = 'response-message';
+      responseMessage.textContent = '';
+    }
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Submitting...';
+    }
+
+    try {
+      const formData = new FormData(form);
+
+      const response = await fetch('/api/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Unable to submit your request.');
+      }
+
+      if (responseMessage) {
+        responseMessage.textContent = result.message || 'Your quote request was submitted successfully.';
+        responseMessage.classList.add('success');
+      }
+
+      form.reset();
+      resetAllConditionalSections();
+      updatePanels();
+
+      if (window.turnstile) {
+        window.turnstile.reset();
+      }
+    } catch (error) {
+      if (responseMessage) {
+        responseMessage.textContent = error.message || 'Something went wrong while submitting the form.';
+        responseMessage.classList.add('error');
+      }
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit quote request';
+      }
+    }
+  });
+});
                 <div class="option-grid">
                   <label class="choice"><input type="radio" name="homeFourPointStatus" value="I have"><span>I have</span></label>
                   <label class="choice"><input type="radio" name="homeFourPointStatus" value="I ordered"><span>I ordered</span></label>
