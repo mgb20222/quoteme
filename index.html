@@ -703,29 +703,325 @@
     Collect driver, vehicle, prior coverage, and loss details needed for accurate auto pricing.
   </p>
 
-  <!-- Drivers -->
-  <div class="grid two">
-    <!-- Driver 1 -->
+  <div class="callout">
+    Start with Driver #1 and Vehicle #1. Add more only if needed, up to 4 drivers and 4 vehicles.
+  </div>
+
+  <div class="stack-top">
+    <h5 class="fieldset-label">Drivers</h5>
+  </div>
+
+  <div id="autoDriver1Block" class="stack-top">
+    <div class="grid two">
+      <div class="field">
+        <label for="autoDriver1Name">Driver #1 full name (as listed on license)</label>
+        <input id="autoDriver1Name" name="autoDriver1Name" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver1Dob">Driver #1 date of birth</label>
+        <input id="autoDriver1Dob" name="autoDriver1Dob" type="date" />
+      </div>
+      <div class="field">
+        <label for="autoDriver1YearsLicensed">Driver #1 years U.S. licensed</label>
+        <input id="autoDriver1YearsLicensed" name="autoDriver1YearsLicensed" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver1Occupation">Driver #1 occupation</label>
+        <input id="autoDriver1Occupation" name="autoDriver1Occupation" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver1PrimaryVehicle">Driver #1 primarily drives which vehicle?</label>
+        <input id="autoDriver1PrimaryVehicle" name="autoDriver1PrimaryVehicle" type="text" placeholder="Example: Vehicle #1" />
+      </div>
+      <div class="field">
+        <label for="autoDriver1LicenseState">Driver #1 license state</label>
+        <input id="autoDriver1LicenseState" name="autoDriver1LicenseState" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div id="autoDriver2Block" class="stack-top" hidden>
+    <div class="grid two">
+      <div class="field">
+        <label for="autoDriver2Name">Driver #2 full name (as listed on license)</label>
+        <input id="autoDriver2Name" name="autoDriver2Name" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver2Dob">Driver #2 date of birth</label>
+        <input id="autoDriver2Dob" name="autoDriver2Dob" type="date" />
+      </div>
+      <div class="field">
+        <label for="autoDriver2YearsLicensed">Driver #2 years U.S. licensed</label>
+        <input id="autoDriver2YearsLicensed" name="autoDriver2YearsLicensed" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver2Occupation">Driver #2 occupation</label>
+        <input id="autoDriver2Occupation" name="autoDriver2Occupation" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver2PrimaryVehicle">Driver #2 primarily drives which vehicle?</label>
+        <input id="autoDriver2PrimaryVehicle" name="autoDriver2PrimaryVehicle" type="text" placeholder="Example: Vehicle #2" />
+      </div>
+      <div class="field">
+        <label for="autoDriver2LicenseState">Driver #2 license state</label>
+        <input id="autoDriver2LicenseState" name="autoDriver2LicenseState" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div id="autoDriver3Block" class="stack-top" hidden>
+    <div class="grid two">
+      <div class="field">
+        <label for="autoDriver3Name">Driver #3 full name (as listed on license)</label>
+        <input id="autoDriver3Name" name="autoDriver3Name" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver3Dob">Driver #3 date of birth</label>
+        <input id="autoDriver3Dob" name="autoDriver3Dob" type="date" />
+      </div>
+      <div class="field">
+        <label for="autoDriver3YearsLicensed">Driver #3 years U.S. licensed</label>
+        <input id="autoDriver3YearsLicensed" name="autoDriver3YearsLicensed" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver3Occupation">Driver #3 occupation</label>
+        <input id="autoDriver3Occupation" name="autoDriver3Occupation" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver3PrimaryVehicle">Driver #3 primarily drives which vehicle?</label>
+        <input id="autoDriver3PrimaryVehicle" name="autoDriver3PrimaryVehicle" type="text" placeholder="Example: Vehicle #3" />
+      </div>
+      <div class="field">
+        <label for="autoDriver3LicenseState">Driver #3 license state</label>
+        <input id="autoDriver3LicenseState" name="autoDriver3LicenseState" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div id="autoDriver4Block" class="stack-top" hidden>
+    <div class="grid two">
+      <div class="field">
+        <label for="autoDriver4Name">Driver #4 full name (as listed on license)</label>
+        <input id="autoDriver4Name" name="autoDriver4Name" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver4Dob">Driver #4 date of birth</label>
+        <input id="autoDriver4Dob" name="autoDriver4Dob" type="date" />
+      </div>
+      <div class="field">
+        <label for="autoDriver4YearsLicensed">Driver #4 years U.S. licensed</label>
+        <input id="autoDriver4YearsLicensed" name="autoDriver4YearsLicensed" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver4Occupation">Driver #4 occupation</label>
+        <input id="autoDriver4Occupation" name="autoDriver4Occupation" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoDriver4PrimaryVehicle">Driver #4 primarily drives which vehicle?</label>
+        <input id="autoDriver4PrimaryVehicle" name="autoDriver4PrimaryVehicle" type="text" placeholder="Example: Vehicle #4" />
+      </div>
+      <div class="field">
+        <label for="autoDriver4LicenseState">Driver #4 license state</label>
+        <input id="autoDriver4LicenseState" name="autoDriver4LicenseState" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-top">
+    <button type="button" class="button button-secondary" id="addAutoDriverButton">Add another driver</button>
+  </div>
+
+  <div class="stack-top">
+    <h5 class="fieldset-label">Vehicles</h5>
+  </div>
+
+  <div id="autoVehicle1Block" class="stack-top">
+    <div class="grid two">
+      <div class="field">
+        <label for="autoVehicle1Year">Vehicle #1 year</label>
+        <input id="autoVehicle1Year" name="autoVehicle1Year" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle1Make">Vehicle #1 make</label>
+        <input id="autoVehicle1Make" name="autoVehicle1Make" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle1Model">Vehicle #1 model</label>
+        <input id="autoVehicle1Model" name="autoVehicle1Model" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle1Type">Vehicle #1 type</label>
+        <input id="autoVehicle1Type" name="autoVehicle1Type" type="text" placeholder="Sedan, coupe, pickup, van, SUV, etc." />
+      </div>
+      <div class="field">
+        <label for="autoVehicle1Vin">Vehicle #1 VIN</label>
+        <input id="autoVehicle1Vin" name="autoVehicle1Vin" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle1Ownership">Vehicle #1 owned, financed, or leased?</label>
+        <input id="autoVehicle1Ownership" name="autoVehicle1Ownership" type="text" placeholder="Owned, bank financed, or leased." />
+      </div>
+      <div class="field">
+        <label for="autoVehicle1RegisteredOwner">Registered owner of Vehicle #1</label>
+        <input id="autoVehicle1RegisteredOwner" name="autoVehicle1RegisteredOwner" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle1PrimaryUse">Vehicle #1 primary use</label>
+        <input id="autoVehicle1PrimaryUse" name="autoVehicle1PrimaryUse" type="text" placeholder="Commute, pleasure, business, rideshare, etc." />
+      </div>
+      <div class="field">
+        <label for="autoVehicle1GaragingZip">Vehicle #1 garaging ZIP</label>
+        <input id="autoVehicle1GaragingZip" name="autoVehicle1GaragingZip" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div id="autoVehicle2Block" class="stack-top" hidden>
+    <div class="grid two">
+      <div class="field">
+        <label for="autoVehicle2Year">Vehicle #2 year</label>
+        <input id="autoVehicle2Year" name="autoVehicle2Year" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle2Make">Vehicle #2 make</label>
+        <input id="autoVehicle2Make" name="autoVehicle2Make" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle2Model">Vehicle #2 model</label>
+        <input id="autoVehicle2Model" name="autoVehicle2Model" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle2Type">Vehicle #2 type</label>
+        <input id="autoVehicle2Type" name="autoVehicle2Type" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle2Vin">Vehicle #2 VIN</label>
+        <input id="autoVehicle2Vin" name="autoVehicle2Vin" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle2Ownership">Vehicle #2 owned, financed, or leased?</label>
+        <input id="autoVehicle2Ownership" name="autoVehicle2Ownership" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle2RegisteredOwner">Registered owner of Vehicle #2</label>
+        <input id="autoVehicle2RegisteredOwner" name="autoVehicle2RegisteredOwner" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle2PrimaryUse">Vehicle #2 primary use</label>
+        <input id="autoVehicle2PrimaryUse" name="autoVehicle2PrimaryUse" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle2GaragingZip">Vehicle #2 garaging ZIP</label>
+        <input id="autoVehicle2GaragingZip" name="autoVehicle2GaragingZip" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div id="autoVehicle3Block" class="stack-top" hidden>
+    <div class="grid two">
+      <div class="field">
+        <label for="autoVehicle3Year">Vehicle #3 year</label>
+        <input id="autoVehicle3Year" name="autoVehicle3Year" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle3Make">Vehicle #3 make</label>
+        <input id="autoVehicle3Make" name="autoVehicle3Make" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle3Model">Vehicle #3 model</label>
+        <input id="autoVehicle3Model" name="autoVehicle3Model" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle3Type">Vehicle #3 type</label>
+        <input id="autoVehicle3Type" name="autoVehicle3Type" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle3Vin">Vehicle #3 VIN</label>
+        <input id="autoVehicle3Vin" name="autoVehicle3Vin" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle3Ownership">Vehicle #3 owned, financed, or leased?</label>
+        <input id="autoVehicle3Ownership" name="autoVehicle3Ownership" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle3RegisteredOwner">Registered owner of Vehicle #3</label>
+        <input id="autoVehicle3RegisteredOwner" name="autoVehicle3RegisteredOwner" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle3PrimaryUse">Vehicle #3 primary use</label>
+        <input id="autoVehicle3PrimaryUse" name="autoVehicle3PrimaryUse" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle3GaragingZip">Vehicle #3 garaging ZIP</label>
+        <input id="autoVehicle3GaragingZip" name="autoVehicle3GaragingZip" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div id="autoVehicle4Block" class="stack-top" hidden>
+    <div class="grid two">
+      <div class="field">
+        <label for="autoVehicle4Year">Vehicle #4 year</label>
+        <input id="autoVehicle4Year" name="autoVehicle4Year" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle4Make">Vehicle #4 make</label>
+        <input id="autoVehicle4Make" name="autoVehicle4Make" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle4Model">Vehicle #4 model</label>
+        <input id="autoVehicle4Model" name="autoVehicle4Model" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle4Type">Vehicle #4 type</label>
+        <input id="autoVehicle4Type" name="autoVehicle4Type" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle4Vin">Vehicle #4 VIN</label>
+        <input id="autoVehicle4Vin" name="autoVehicle4Vin" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle4Ownership">Vehicle #4 owned, financed, or leased?</label>
+        <input id="autoVehicle4Ownership" name="autoVehicle4Ownership" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle4RegisteredOwner">Registered owner of Vehicle #4</label>
+        <input id="autoVehicle4RegisteredOwner" name="autoVehicle4RegisteredOwner" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle4PrimaryUse">Vehicle #4 primary use</label>
+        <input id="autoVehicle4PrimaryUse" name="autoVehicle4PrimaryUse" type="text" />
+      </div>
+      <div class="field">
+        <label for="autoVehicle4GaragingZip">Vehicle #4 garaging ZIP</label>
+        <input id="autoVehicle4GaragingZip" name="autoVehicle4GaragingZip" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-top">
+    <button type="button" class="button button-secondary" id="addAutoVehicleButton">Add another vehicle</button>
+  </div>
+
+  <div class="grid two stack-top">
     <div class="field">
-      <label for="autoDriver1Name">Driver #1 full name (as on license)</label>
-      <input id="autoDriver1Name" name="autoDriver1Name" type="text" />
+      <label for="autoPriorInsurance">Current or prior carrier</label>
+      <input id="autoPriorInsurance" name="autoPriorInsurance" type="text" placeholder="If none, write NONE." />
     </div>
     <div class="field">
-      <label for="autoDriver1Dob">Driver #1 date of birth</label>
-      <input id="autoDriver1Dob" name="autoDriver1Dob" type="date" />
+      <label for="autoCoverage">Requested auto coverage</label>
+      <textarea id="autoCoverage" name="autoCoverage" placeholder="Liability only, full coverage, desired limits, comp/collision deductibles, UM, rental, towing."></textarea>
     </div>
     <div class="field">
-      <label for="autoDriver1YearsLicensed">Driver #1 years U.S. licensed</label>
-      <input id="autoDriver1YearsLicensed" name="autoDriver1YearsLicensed" type="text" />
+      <label for="autoViolations">Tickets, accidents, or claims</label>
+      <textarea id="autoViolations" name="autoViolations" placeholder="Include dates, at-fault status, DUI, suspensions, or claim history."></textarea>
     </div>
     <div class="field">
-      <label for="autoDriver1Occupation">Driver #1 occupation (used in rating by some carriers)</label>
-      <input id="autoDriver1Occupation" name="autoDriver1Occupation" type="text" />
+      <label for="autoUseNotes">Additional use or rating notes</label>
+      <textarea id="autoUseNotes" name="autoUseNotes" placeholder="Annual mileage, rideshare, delivery, business use, or anything else the quoting agent should know."></textarea>
     </div>
-    <div class="field">
-      <label for="autoDriver1PrimaryVehicle">Driver #1 primarily drives which vehicle?</label>
-      <input id="autoDriver1PrimaryVehicle" name="autoDriver1PrimaryVehicle" type="text" placeholder="Example: Vehicle #1" />
-    </div>
+  </div>
+</div>
     <div class="field">
       <label for="autoDriver1LicenseState">Driver #1 license state</label>
       <input id="autoDriver1LicenseState" name="autoDriver1LicenseState" type="text" />
