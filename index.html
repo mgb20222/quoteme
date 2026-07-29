@@ -1021,9 +1021,21 @@
         <input id="autoVehicle4Ownership" name="autoVehicle4Ownership" type="text" />
       </div>
       <div class="field">
-        <label for="autoVehicle4RegisteredOwner">Registered owner of Vehicle #4</label>
-        <input id="autoVehicle4RegisteredOwner" name="autoVehicle4RegisteredOwner" type="text" />
-      </div>
+  <label for="autoVehicle4RegisteredOwner">Registered owner of Vehicle #4</label>
+  <select id="autoVehicle4RegisteredOwner" name="autoVehicle4RegisteredOwner">
+    <option value="">Select one</option>
+    <option value="Primary contact">Primary contact (listed at top of form)</option>
+    <option value="Driver #1">Driver #1</option>
+    <option value="Driver #2">Driver #2</option>
+    <option value="Driver #3">Driver #3</option>
+    <option value="Driver #4">Driver #4</option>
+    <option value="Other">Other (not listed above)</option>
+  </select>
+</div>
+<div class="field">
+  <label for="autoVehicle4RegisteredOwnerOther">If Other, enter registered owner name</label>
+  <input id="autoVehicle4RegisteredOwnerOther" name="autoVehicle4RegisteredOwnerOther" type="text" />
+</div>
       <div class="field">
         <label for="autoVehicle4PrimaryUse">Vehicle #4 primary use</label>
         <input id="autoVehicle4PrimaryUse" name="autoVehicle4PrimaryUse" type="text" />
