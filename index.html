@@ -1994,217 +1994,399 @@
   </main>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const form = document.getElementById('quoteForm');
-      const submitButton = document.getElementById('submitButton');
-      const responseMessage = document.getElementById('responseMessage');
-      const insuranceTypeInputs = document.querySelectorAll('input[name="insuranceType"]');
-      const dynamicPrompt = document.getElementById('dynamicPrompt');
-      const panels = document.querySelectorAll('.dynamic-panel');
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('quoteForm');
+    const submitButton = document.getElementById('submitButton');
+    const responseMessage = document.getElementById('responseMessage');
+    const insuranceTypeInputs = document.querySelectorAll('input[name="insuranceType"]');
+    const dynamicPrompt = document.getElementById('dynamicPrompt');
+    const panels = document.querySelectorAll('.dynamic-panel');
 
-      function getSelectedInsuranceType() {
-        const selected = document.querySelector('input[name="insuranceType"]:checked');
-        return selected ? selected.value : null;
+    let visibleAutoDriverCount = 1;
+    let visibleAutoVehicleCount = 1;
+
+    function getSelectedInsuranceType() {
+      const selected = document.querySelector('input[name="insuranceType"]:checked');
+      return selected ? selected.value : null;
+    }
+
+    function hideAllPanels() {
+      panels.forEach(function (panel) {
+        panel.classList.remove('active');
+        panel.hidden = true;
+      });
+    }
+
+    function showPanel(panel) {
+      if (!panel) return;
+      panel.classList.add('active');
+      panel.hidden = false;
+    }
+
+    function showDynamicPrompt(message) {
+      if (!dynamicPrompt) return;
+      dynamicPrompt.style.display = 'block';
+      dynamicPrompt.textContent = message;
+    }
+
+    function hideDynamicPrompt() {
+      if (!dynamicPrompt) return;
+      dynamicPrompt.style.display = 'none';
+      dynamicPrompt.textContent = '';
+    }
+
+    function setElementHidden(id, shouldHide) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.hidden = shouldHide;
       }
+    }
 
-      function hideAllPanels() {
-        panels.forEach(function (panel) {
-          panel.classList.remove('active');
-          panel.hidden = true;
-        });
+    function clearFieldValue(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      if (el.tagName === 'SELECT' || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.value = '';
       }
+    }
 
-      function showPanel(panel) {
-        if (!panel) return;
-        panel.classList.add('active');
-        panel.hidden = false;
+    function clearFieldsByIds(ids) {
+      ids.forEach(function (id) {
+        clearFieldValue(id);
+      });
+    }
+
+    function setRequired(id, required) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.required = required;
       }
+    }
 
-      function showDynamicPrompt(message) {
-        if (!dynamicPrompt) return;
-        dynamicPrompt.style.display = 'block';
-        dynamicPrompt.textContent = message;
-      }
+    function resetHomeownersConditionalState() {
+      setElementHidden('homeClosingFields', true);
+      setElementHidden('homePoolFields', true);
 
-      function hideDynamicPrompt() {
-        if (!dynamicPrompt) return;
-        dynamicPrompt.style.display = 'none';
-        dynamicPrompt.textContent = '';
-      }
+      setRequired('homePoolFence', false);
+      setRequired('homePoolScreen', false);
 
-      function setElementHidden(id, shouldHide) {
-        const el = document.getElementById(id);
-        if (el) {
-          el.hidden = shouldHide;
-        }
-      }
+      clearFieldValue('homePoolFence');
+      clearFieldValue('homePoolScreen');
+      clearFieldValue('homePoolType');
+      clearFieldValue('homePoolFeatures');
+      clearFieldValue('homeEscrow');
+      clearFieldValue('homeExpectedClosingDate');
+      clearFieldValue('homeRealtorContact');
+      clearFieldValue('homeLenderContact');
+    }
 
-      function clearFieldValue(id) {
-        const el = document.getElementById(id);
-        if (!el) return;
+    function updateHomeownersConditionalFields() {
+      const homeClosingOrRenewal = document.getElementById('homeClosingOrRenewal');
+      const homePool = document.getElementById('homePool');
 
-        if (el.tagName === 'SELECT' || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-          el.value = '';
-        }
-      }
+      const showClosingFields = homeClosingOrRenewal && homeClosingOrRenewal.value === 'Yes';
+      const showPoolFields = homePool && homePool.value === 'Yes';
 
-      function setRequired(id, required) {
-        const el = document.getElementById(id);
-        if (el) {
-          el.required = required;
-        }
-      }
+      setElementHidden('homeClosingFields', !showClosingFields);
+      setElementHidden('homePoolFields', !showPoolFields);
 
-      function resetHomeownersConditionalState() {
-        setElementHidden('homeClosingFields', true);
-        setElementHidden('homePoolFields', true);
+      setRequired('homePoolFence', !!showPoolFields);
+      setRequired('homePoolScreen', !!showPoolFields);
 
-        setRequired('homePoolFence', false);
-        setRequired('homePoolScreen', false);
-
+      if (!showPoolFields) {
         clearFieldValue('homePoolFence');
         clearFieldValue('homePoolScreen');
         clearFieldValue('homePoolType');
         clearFieldValue('homePoolFeatures');
+      }
+
+      if (!showClosingFields) {
         clearFieldValue('homeEscrow');
         clearFieldValue('homeExpectedClosingDate');
         clearFieldValue('homeRealtorContact');
         clearFieldValue('homeLenderContact');
       }
+    }
 
-      function updateHomeownersConditionalFields() {
-        const homeClosingOrRenewal = document.getElementById('homeClosingOrRenewal');
-        const homePool = document.getElementById('homePool');
+    function bindHomeownersConditionalFields() {
+      const homeClosingOrRenewal = document.getElementById('homeClosingOrRenewal');
+      const homePool = document.getElementById('homePool');
 
-        const showClosingFields = homeClosingOrRenewal && homeClosingOrRenewal.value === 'Yes';
-        const showPoolFields = homePool && homePool.value === 'Yes';
-
-        setElementHidden('homeClosingFields', !showClosingFields);
-        setElementHidden('homePoolFields', !showPoolFields);
-
-        setRequired('homePoolFence', !!showPoolFields);
-        setRequired('homePoolScreen', !!showPoolFields);
-
-        if (!showPoolFields) {
-          clearFieldValue('homePoolFence');
-          clearFieldValue('homePoolScreen');
-          clearFieldValue('homePoolType');
-          clearFieldValue('homePoolFeatures');
-        }
-
-        if (!showClosingFields) {
-          clearFieldValue('homeEscrow');
-          clearFieldValue('homeExpectedClosingDate');
-          clearFieldValue('homeRealtorContact');
-          clearFieldValue('homeLenderContact');
-        }
+      if (homeClosingOrRenewal) {
+        homeClosingOrRenewal.onchange = updateHomeownersConditionalFields;
       }
 
-      function bindHomeownersConditionalFields() {
-        const homeClosingOrRenewal = document.getElementById('homeClosingOrRenewal');
-        const homePool = document.getElementById('homePool');
-
-        if (homeClosingOrRenewal) {
-          homeClosingOrRenewal.onchange = updateHomeownersConditionalFields;
-        }
-
-        if (homePool) {
-          homePool.onchange = updateHomeownersConditionalFields;
-        }
-
-        updateHomeownersConditionalFields();
+      if (homePool) {
+        homePool.onchange = updateHomeownersConditionalFields;
       }
 
-      function resetAllConditionalSections() {
-        resetHomeownersConditionalState();
+      updateHomeownersConditionalFields();
+    }
+
+    function updateAutoDriverBlocks() {
+      setElementHidden('autoDriver2Block', visibleAutoDriverCount < 2);
+      setElementHidden('autoDriver3Block', visibleAutoDriverCount < 3);
+      setElementHidden('autoDriver4Block', visibleAutoDriverCount < 4);
+
+      const addAutoDriverButton = document.getElementById('addAutoDriverButton');
+      if (addAutoDriverButton) {
+        addAutoDriverButton.hidden = visibleAutoDriverCount >= 4;
+      }
+    }
+
+    function updateAutoVehicleBlocks() {
+      setElementHidden('autoVehicle2Block', visibleAutoVehicleCount < 2);
+      setElementHidden('autoVehicle3Block', visibleAutoVehicleCount < 3);
+      setElementHidden('autoVehicle4Block', visibleAutoVehicleCount < 4);
+
+      const addAutoVehicleButton = document.getElementById('addAutoVehicleButton');
+      if (addAutoVehicleButton) {
+        addAutoVehicleButton.hidden = visibleAutoVehicleCount >= 4;
+      }
+    }
+
+    function resetAutoProgressiveSections() {
+      visibleAutoDriverCount = 1;
+      visibleAutoVehicleCount = 1;
+
+      clearFieldsByIds([
+        'autoDriver2Name',
+        'autoDriver2Dob',
+        'autoDriver2YearsLicensed',
+        'autoDriver2Occupation',
+        'autoDriver2PrimaryVehicle',
+        'autoDriver2LicenseState',
+        'autoDriver3Name',
+        'autoDriver3Dob',
+        'autoDriver3YearsLicensed',
+        'autoDriver3Occupation',
+        'autoDriver3PrimaryVehicle',
+        'autoDriver3LicenseState',
+        'autoDriver4Name',
+        'autoDriver4Dob',
+        'autoDriver4YearsLicensed',
+        'autoDriver4Occupation',
+        'autoDriver4PrimaryVehicle',
+        'autoDriver4LicenseState',
+        'autoVehicle2Year',
+        'autoVehicle2Make',
+        'autoVehicle2Model',
+        'autoVehicle2Type',
+        'autoVehicle2Vin',
+        'autoVehicle2Ownership',
+        'autoVehicle2RegisteredOwner',
+        'autoVehicle2RegisteredOwnerOther',
+        'autoVehicle2PrimaryUse',
+        'autoVehicle2GaragingZip',
+        'autoVehicle3Year',
+        'autoVehicle3Make',
+        'autoVehicle3Model',
+        'autoVehicle3Type',
+        'autoVehicle3Vin',
+        'autoVehicle3Ownership',
+        'autoVehicle3RegisteredOwner',
+        'autoVehicle3RegisteredOwnerOther',
+        'autoVehicle3PrimaryUse',
+        'autoVehicle3GaragingZip',
+        'autoVehicle4Year',
+        'autoVehicle4Make',
+        'autoVehicle4Model',
+        'autoVehicle4Type',
+        'autoVehicle4Vin',
+        'autoVehicle4Ownership',
+        'autoVehicle4RegisteredOwner',
+        'autoVehicle4RegisteredOwnerOther',
+        'autoVehicle4PrimaryUse',
+        'autoVehicle4GaragingZip'
+      ]);
+
+      clearFieldValue('autoVehicle1RegisteredOwnerOther');
+
+      setRequired('autoVehicle1RegisteredOwnerOther', false);
+      setRequired('autoVehicle2RegisteredOwnerOther', false);
+      setRequired('autoVehicle3RegisteredOwnerOther', false);
+      setRequired('autoVehicle4RegisteredOwnerOther', false);
+
+      updateAutoDriverBlocks();
+      updateAutoVehicleBlocks();
+    }
+
+    function bindAutoProgressiveFields() {
+      const addAutoDriverButton = document.getElementById('addAutoDriverButton');
+      const addAutoVehicleButton = document.getElementById('addAutoVehicleButton');
+
+      if (addAutoDriverButton && !addAutoDriverButton.dataset.bound) {
+        addAutoDriverButton.addEventListener('click', function () {
+          if (visibleAutoDriverCount < 4) {
+            visibleAutoDriverCount += 1;
+            updateAutoDriverBlocks();
+          }
+        });
+        addAutoDriverButton.dataset.bound = 'true';
       }
 
-      function updatePanels() {
-        const selectedType = getSelectedInsuranceType();
-
-        hideAllPanels();
-        resetAllConditionalSections();
-
-        if (!selectedType) {
-          showDynamicPrompt('Select an insurance type to reveal the quote questions specific to that line of business.');
-          return;
-        }
-
-        const activePanel = document.getElementById('panel-' + selectedType);
-
-        if (!activePanel) {
-          showDynamicPrompt('This quote type is selected, but its custom section has not been configured yet.');
-          return;
-        }
-
-        showPanel(activePanel);
-        hideDynamicPrompt();
-
-        if (selectedType === 'Homeowners') {
-          bindHomeownersConditionalFields();
-        }
+      if (addAutoVehicleButton && !addAutoVehicleButton.dataset.bound) {
+        addAutoVehicleButton.addEventListener('click', function () {
+          if (visibleAutoVehicleCount < 4) {
+            visibleAutoVehicleCount += 1;
+            updateAutoVehicleBlocks();
+          }
+        });
+        addAutoVehicleButton.dataset.bound = 'true';
       }
 
-      insuranceTypeInputs.forEach(function (input) {
-        input.addEventListener('change', updatePanels);
-      });
+      updateAutoDriverBlocks();
+      updateAutoVehicleBlocks();
+    }
 
-      updatePanels();
-
-      if (!form) return;
-
-      form.addEventListener('submit', async function (event) {
-        event.preventDefault();
-
-        if (responseMessage) {
-          responseMessage.className = 'response-message';
-          responseMessage.textContent = '';
+    function bindAutoRegisteredOwnerFields() {
+      const mappings = [
+        {
+          selectId: 'autoVehicle1RegisteredOwner',
+          otherId: 'autoVehicle1RegisteredOwnerOther'
+        },
+        {
+          selectId: 'autoVehicle2RegisteredOwner',
+          otherId: 'autoVehicle2RegisteredOwnerOther'
+        },
+        {
+          selectId: 'autoVehicle3RegisteredOwner',
+          otherId: 'autoVehicle3RegisteredOwnerOther'
+        },
+        {
+          selectId: 'autoVehicle4RegisteredOwner',
+          otherId: 'autoVehicle4RegisteredOwnerOther'
         }
+      ];
 
-        if (submitButton) {
-          submitButton.disabled = true;
-          submitButton.textContent = 'Submitting...';
-        }
+      mappings.forEach(function (map) {
+        const selectEl = document.getElementById(map.selectId);
+        const otherEl = document.getElementById(map.otherId);
 
-        try {
-          const formData = new FormData(form);
+        if (!selectEl || !otherEl) return;
 
-          const response = await fetch('/api/submit', {
-            method: 'POST',
-            body: formData
+        otherEl.required = selectEl.value === 'Other';
+
+        if (!selectEl.dataset.boundOwnerOther) {
+          selectEl.addEventListener('change', function () {
+            const isOther = selectEl.value === 'Other';
+            otherEl.required = isOther;
+
+            if (!isOther) {
+              otherEl.value = '';
+            }
           });
 
-          const result = await response.json();
-
-          if (!response.ok) {
-            throw new Error(result.error || 'Unable to submit your request.');
-          }
-
-          if (responseMessage) {
-            responseMessage.textContent = result.message || 'Your quote request was submitted successfully.';
-            responseMessage.classList.add('success');
-          }
-
-          form.reset();
-          resetAllConditionalSections();
-          updatePanels();
-
-          if (window.turnstile) {
-            window.turnstile.reset();
-          }
-        } catch (error) {
-          if (responseMessage) {
-            responseMessage.textContent = error.message || 'Something went wrong while submitting the form.';
-            responseMessage.classList.add('error');
-          }
-        } finally {
-          if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Submit quote request';
-          }
+          selectEl.dataset.boundOwnerOther = 'true';
         }
       });
+    }
+
+    function resetAllConditionalSections() {
+      resetHomeownersConditionalState();
+      resetAutoProgressiveSections();
+
+      clearFieldValue('autoVehicle1RegisteredOwnerOther');
+      clearFieldValue('autoVehicle2RegisteredOwnerOther');
+      clearFieldValue('autoVehicle3RegisteredOwnerOther');
+      clearFieldValue('autoVehicle4RegisteredOwnerOther');
+
+      setRequired('autoVehicle1RegisteredOwnerOther', false);
+      setRequired('autoVehicle2RegisteredOwnerOther', false);
+      setRequired('autoVehicle3RegisteredOwnerOther', false);
+      setRequired('autoVehicle4RegisteredOwnerOther', false);
+    }
+
+    function updatePanels() {
+      const selectedType = getSelectedInsuranceType();
+
+      hideAllPanels();
+      resetAllConditionalSections();
+
+      if (!selectedType) {
+        showDynamicPrompt('Select an insurance type to reveal the quote questions specific to that line of business.');
+        return;
+      }
+
+      const activePanel = document.getElementById('panel-' + selectedType);
+
+      if (!activePanel) {
+        showDynamicPrompt('This quote type is selected, but its custom section has not been configured yet.');
+        return;
+      }
+
+      showPanel(activePanel);
+      hideDynamicPrompt();
+
+      if (selectedType === 'Homeowners') {
+        bindHomeownersConditionalFields();
+      }
+
+      if (selectedType === 'Auto') {
+        bindAutoProgressiveFields();
+        bindAutoRegisteredOwnerFields();
+      }
+    }
+
+    insuranceTypeInputs.forEach(function (input) {
+      input.addEventListener('change', updatePanels);
     });
-  </script>
-</body>
-</html>
+
+    updatePanels();
+
+    if (!form) return;
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      if (responseMessage) {
+        responseMessage.className = 'response-message';
+        responseMessage.textContent = '';
+      }
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+      }
+
+      try {
+        const formData = new FormData(form);
+
+        const response = await fetch('/api/submit', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Unable to submit your request.');
+        }
+
+        if (responseMessage) {
+          responseMessage.textContent = result.message || 'Your quote request was submitted successfully.';
+          responseMessage.classList.add('success');
+        }
+
+        form.reset();
+        resetAllConditionalSections();
+        updatePanels();
+
+        if (window.turnstile) {
+          window.turnstile.reset();
+        }
+      } catch (error) {
+        if (responseMessage) {
+          responseMessage.textContent = error.message || 'Something went wrong while submitting the form.';
+          responseMessage.classList.add('error');
+        }
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Submit quote request';
+        }
+      }
+    });
+  });
+</script>
